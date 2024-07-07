@@ -1,40 +1,30 @@
 import { LoadingSpinner } from "@/components/loading"
-import { BASE_URL } from "@/constants/base-url"
 import Link from "next/link"
 import { Suspense } from "react"
-import { ProductsResponse } from "../../types/product"
+import { getAllProducts } from "../lib/product"
 import { ProductCard } from "./product-card"
+import { SortByPrice } from "./sort-by-price"
 
-/**
- * The application should allow the user to filter the products by
-category and sort them by price in ascending or descending order.
- */
-
-// 'https://dummyjson.com/products?sortBy=title&order=asc'
-async function getAllProducts(
-  limit: number,
-  skip: number,
-  orderBy: "asc" | "desc",
-): Promise<ProductsResponse> {
-  const res = await fetch(
-    `${BASE_URL}/products?limit=${limit.toString()}&skip=${skip.toString()}&sortBy=price&order=${orderBy}`,
-  )
-  if (!res.ok) {
-    throw new Error("Network response is not ok")
-  }
-
-  const data = await res.json()
-  return data
-}
-
-export default async function Home() {
-  const data = await getAllProducts(18, 10, "desc")
-
-  if (!data) return <p>Error...</p>
-
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { order?: "asc" | "desc" }
+}) {
+  const order = searchParams.order || "desc"
+  const data = await getAllProducts(18, 10, order)
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1 className="text-4xl font-semibold">All Product</h1>
+      <div className="flex w-full items-center justify-between">
+        <div>
+          <p>Filter by Category</p>
+        </div>
+        <div>
+          <Suspense fallback={<LoadingSpinner />}>
+            <SortByPrice />
+          </Suspense>
+        </div>
+      </div>
       <Suspense fallback={<LoadingSpinner />}>
         <section className="mt-12 grid grid-cols-3 gap-8">
           {!!data.products &&
