@@ -6,6 +6,7 @@ export interface Product {
   price: number
   thumbnail: string
   availabilityStatus: string
+  images: string[]
 }
 
 export interface ProductsResponse {

@@ -1,10 +1,10 @@
+import { getAllProducts, getCategoryList } from "@/app/lib/product"
 import { LoadingSpinner } from "@/components/loading"
+import { ProductCard } from "@/components/product-card"
 import Link from "next/link"
 import { Suspense } from "react"
-import { getAllProducts, getCategoryList } from "../lib/product"
-import { ProductCard } from "./product-card"
-import { SortByPrice } from "./sort-by-price"
 import { FilteredByCategory } from "./filtered-by-category"
+import { SortByPrice } from "./sort-by-price"
 
 export default async function Home({
   searchParams,

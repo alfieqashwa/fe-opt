@@ -1,11 +1,11 @@
+import { FilteredByCategory } from "@/app/(home)/filtered-by-category"
 import { getCategoryList, getProductsByCategory } from "@/app/lib/product"
 import { BackButton } from "@/components/back-button"
 import { LoadingSpinner } from "@/components/loading"
+import { ProductCard } from "@/components/product-card"
 import { Home } from "lucide-react"
 import Link from "next/link"
 import { Suspense } from "react"
-import { FilteredByCategory } from "../../(home)/filtered-by-category"
-import { ProductCard } from "../../(home)/product-card"
 
 export default async function Page({
   params,

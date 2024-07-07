@@ -1,7 +1,7 @@
-import { ProductCard } from "@/app/(home)/product-card"
 import { getProductById } from "@/app/lib/product"
 import { BackButton } from "@/components/back-button"
 import { LoadingSpinner } from "@/components/loading"
+import { ProductCard } from "@/components/product-card"
 import { Home } from "lucide-react"
 import Link from "next/link"
 import { Suspense } from "react"
