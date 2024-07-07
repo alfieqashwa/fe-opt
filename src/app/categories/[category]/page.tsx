@@ -23,18 +23,16 @@ export default async function Page({
         <h1 className="text-4xl font-semibold capitalize">
           Products By {params.category}
         </h1>
-        <div className="mt-4 flex justify-center space-x-4">
-          <BackButton />
-          <Link href={"/"}>
-            <Home size={32} />
-          </Link>
-        </div>
       </div>
       <div className="mt-4 flex w-full items-center justify-between">
-        <div>
-          <Suspense fallback={<LoadingSpinner />}>
-            <FilteredByCategory categories={categories} />
-          </Suspense>
+        <div className="flex w-full items-end justify-between">
+          <FilteredByCategory categories={categories} />
+          <div className="mt-4 flex justify-center space-x-6">
+            <BackButton />
+            <Link href={"/"}>
+              <Home size={32} />
+            </Link>
+          </div>
         </div>
       </div>
       <Suspense fallback={<LoadingSpinner />}>

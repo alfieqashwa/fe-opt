@@ -1,5 +1,14 @@
 "use client"
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
 
@@ -37,14 +46,34 @@ export function SortByPrice() {
   }
 
   return (
-    <select
-      // defaultValue={sortOptions.find((option) => option.value === order)}
-      onChange={handleSortChange}
-      className="w-[180px] bg-black"
+    <Select
+      onValueChange={(value) => {
+        router.push(pathname + "?" + createQueryString("order", value))
+      }}
     >
-      <option value="asc">Price: Low to High</option>
-      <option value="desc">Price: High to Low</option>
-    </select>
+      <SelectTrigger className="w-[180px] capitalize">
+        <SelectValue placeholder="Sorted by Price" className="capitalize" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectGroup className="capitalize">
+          <SelectLabel>Categories</SelectLabel>
+          <SelectItem value="asc" className="capitalize">
+            Price: Low to High
+          </SelectItem>
+          <SelectItem value="desc" className="capitalize">
+            Price: High to Low
+          </SelectItem>
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+    // <select
+    //   // defaultValue={sortOptions.find((option) => option.value === order)}
+    //   onChange={handleSortChange}
+    //   className="w-[180px]"
+    // >
+    //   <option value="asc">Price: Low to High</option>
+    //   <option value="desc">Price: High to Low</option>
+    // </select>
 
     // <div className="flex flex-col items-end space-y-2">
     //   <button
