@@ -19,39 +19,37 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   const pathname = usePathname()
 
+  const renderProductImage =
+    // render only on home page or on categories dynamic pages
+    pathname === "/" || pathname.includes("categories") ? (
+      product.thumbnail ? (
+        <Image
+          src={product.thumbnail}
+          alt="Product Thumbnail"
+          loading="lazy"
+          width={width}
+          height={height}
+          className="mx-auto aspect-square"
+        />
+      ) : (
+        <LoadingSpinner />
+      )
+    ) : !!product.images ? (
+      <CarouselImage images={product.images} width={width} height={height} />
+    ) : (
+      <Image
+        src={product.thumbnail}
+        alt="Product Thumbnail"
+        loading="lazy"
+        width={width}
+        height={height}
+        className="mx-auto aspect-square"
+      />
+    )
   return (
     <div className="rounded-md border-2 p-4">
       <div className="rounded-md bg-rose-50 shadow-md">
-        {/* render only on home page or on categories dynamic pages */}
-        {pathname === "/" || pathname.includes("categories") ? (
-          product.thumbnail ? (
-            <Image
-              src={product.thumbnail}
-              alt="Product Thumbnail"
-              loading="lazy"
-              width={width}
-              height={height}
-              className="mx-auto aspect-square"
-            />
-          ) : (
-            <LoadingSpinner />
-          )
-        ) : !!product.images ? (
-          <CarouselImage
-            images={product.images}
-            width={width}
-            height={height}
-          />
-        ) : (
-          <Image
-            src={product.thumbnail}
-            alt="Product Thumbnail"
-            loading="lazy"
-            width={width}
-            height={height}
-            className="mx-auto aspect-square"
-          />
-        )}
+        {renderProductImage}
       </div>
       <article className="mt-4 grid grid-cols-4 justify-start space-y-1">
         <p className="font-medium">Title:</p>
