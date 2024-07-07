@@ -1,9 +1,10 @@
 import { LoadingSpinner } from "@/components/loading"
 import Link from "next/link"
 import { Suspense } from "react"
-import { getAllProducts } from "../lib/product"
+import { getAllProducts, getCategoryList } from "../lib/product"
 import { ProductCard } from "./product-card"
 import { SortByPrice } from "./sort-by-price"
+import { FilteredByCategory } from "./filtered-by-category"
 
 export default async function Home({
   searchParams,
@@ -11,18 +12,21 @@ export default async function Home({
   searchParams: { order?: "asc" | "desc" }
 }) {
   const order = searchParams.order || "desc"
-  const data = await getAllProducts(18, 10, order)
+
+  const [data, categories] = await Promise.all([
+    getAllProducts(order),
+    getCategoryList(),
+  ])
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1 className="text-4xl font-semibold">All Product</h1>
       <div className="flex w-full items-center justify-between">
         <div>
-          <p>Filter by Category</p>
+          <FilteredByCategory categories={categories} />
         </div>
         <div>
-          <Suspense fallback={<LoadingSpinner />}>
-            <SortByPrice />
-          </Suspense>
+          <SortByPrice />
         </div>
       </div>
       <Suspense fallback={<LoadingSpinner />}>
