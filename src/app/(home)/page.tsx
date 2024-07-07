@@ -5,19 +5,23 @@ import Link from "next/link"
 import { Suspense } from "react"
 import { FilteredByCategory } from "./filtered-by-category"
 import { SortByPrice } from "./sort-by-price"
+import { PaginationProduct } from "./pagination-product"
+import { PRODUCTS_PER_PAGE } from "@/constants/products-per-page"
 
 export default async function Home({
   searchParams,
 }: {
-  searchParams: { order?: "asc" | "desc" }
+  searchParams: { order?: "asc" | "desc"; skip: number; limit: number }
 }) {
   const order = searchParams.order || "desc"
+  const skip = searchParams.skip
 
   const [data, categories] = await Promise.all([
-    getAllProducts(order),
+    getAllProducts(order, PRODUCTS_PER_PAGE, skip),
     getCategoryList(),
   ])
 
+  console.log({ total: data.total, limit: data.limit, skip: data.skip })
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1 className="text-4xl font-semibold">All Products</h1>
@@ -39,6 +43,16 @@ export default async function Home({
             ))}
         </section>
       </Suspense>
+      <div className="mt-16">
+        {!!data && (
+          <PaginationProduct
+            total={data.total}
+            skip={data.skip}
+            limit={data.limit}
+          />
+        )}
+      </div>
+      <p>LENGTH: {data.products.length}</p>
     </main>
   )
 }

@@ -61,7 +61,7 @@ export const ProductCard = ({
         <p className="font-medium">Category:</p>
         <p className="col-span-3 capitalize">{product.category}</p>
         <p className="font-medium">Status:</p>
-        <Badge className="col-span-3 w-20 whitespace-nowrap text-xs font-semibold capitalize">
+        <Badge className="col-span-3 max-w-24 whitespace-nowrap text-xs font-semibold capitalize">
           <span className="mx-auto">{product.availabilityStatus}</span>
         </Badge>
       </article>

@@ -1,10 +1,11 @@
 import { BASE_URL } from "@/constants/base-url"
+import { PRODUCTS_PER_PAGE } from "@/constants/products-per-page"
 import { Product, ProductsResponse } from "@/types/product"
 
 export async function getAllProducts(
   orderBy: "asc" | "desc" = "desc",
-  limit: number = 18,
-  skip: number = 10,
+  limit: number = PRODUCTS_PER_PAGE,
+  skip: number = 0,
 ): Promise<ProductsResponse> {
   const res = await fetch(
     `${BASE_URL}/products?limit=${limit.toString()}&skip=${skip.toString()}&sortBy=price&order=${orderBy}`,
