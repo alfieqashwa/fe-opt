@@ -13,7 +13,7 @@ export const ProductCard = ({
   width = 200,
   height = 200,
 }: ProductCardProps) => (
-  <div className="rounded-md border p-4">
+  <div className="rounded-md border-2 p-4">
     <div className="rounded-md bg-rose-50 shadow-md">
       {product.thumbnail ? (
         <Image
